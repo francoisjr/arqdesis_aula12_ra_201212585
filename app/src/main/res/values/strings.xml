@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">ARQDESIS - AULA 12</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="lbl_buscarVoo">Buscar Voos</string>
+    <string name="lbl_selecionaOrigem">Origem</string>
+    <string name="lbl_selecioneDestino">Destino</string>
+    <string name="btn_buscar">Buscar</string>
+
+
+    <string-array name="origem">
+        <item>São Paulo</item>
+        <item>Rio de Janeiro</item>
+        <item>Minas Gerais</item>
+    </string-array>
+
+
+    <string-array name="destino">
+        <item>São Paulo</item>
+        <item>Rio de Janeiro</item>
+        <item>Minas Gerais</item>
+    </string-array>
+    <string name="title_activity_lista_voos">ListaVoos</string>
+
+    <string name="hello_world">Hello world!</string>
+
+</resources>
