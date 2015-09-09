@@ -24,10 +24,9 @@ public class MainActivity extends Activity implements Serializable{
     private Spinner spnOrigem;
     private Spinner spnDestino;
     private Button btnBuscar;
-    private ArrayAdapter<String> arrayAdapterOrigem;
-    private ArrayAdapter<String> arrayAdapterDestino;
     private ArrayList<Voo> voos;
-    private ArrayList<Voo>  voosEncontrados;
+    private ArrayList<Voo>  voosEncontrados = new ArrayList<Voo>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,62 +51,51 @@ public class MainActivity extends Activity implements Serializable{
             public void onClick(View view) {
                 String itemDestino = spnDestino.getSelectedItem().toString();
                 String itemOrigem = spnOrigem.getSelectedItem().toString();
-                //Toast.makeText(getApplicationContext(), "Voo escolhido. De: "+ itemOrigem + " Para: "+ itemDestino, Toast.LENGTH_SHORT).show();
 
                 if (itemOrigem.equals(itemDestino)) {
                     Toast.makeText(getApplicationContext(), "A origem não pode ser a mesma do destino!", Toast.LENGTH_SHORT).show();
                 } else {
-
-                   // Toast.makeText(getApplicationContext(), buscarVoos(itemOrigem,itemDestino).size(), Toast.LENGTH_SHORT).show();
-
-                    Bundle extra = new Bundle();
-                    extra.putSerializable("extra", buscarVoos(itemOrigem, itemDestino));
-
-                    Intent intent = new Intent(MainActivity.this, ListaVoos.class);
-                    intent.putExtra("lista", extra);
-
-
-                   // Intent i = new Intent(MainActivity.this,ListaVoos.class);
-                    //i.putExtra("voos", ));
+                  Intent intent = new Intent(MainActivity.this, ListaVoos.class);
+                    intent.putExtra("lista", buscarVoos(itemOrigem, itemDestino));
                     startActivity(intent);
 
                     try {
                     } catch (android.content.ActivityNotFoundException ex) {
-                       ex.printStackTrace();
+                        ex.printStackTrace();
                         Toast.makeText(MainActivity.this, "Erro inesperado!", Toast.LENGTH_SHORT).show();
-                    }                   // Bundle bundle= new Bundle();
-                   // i.putExtras(bundle);
-
-                  //  bundle.putSerializable("voos", );
-
-                  //  i.putExtra("voos", voosEncontrados);
+                    }
                 }
             }
         });
     }
 
-
-
-
     public ArrayList<Voo> cadastroDeVoos() {
         ArrayList<Voo> voos = new ArrayList<Voo>();
+        voos.add(new Voo("São Paulo", "Rio de Janeiro", "13:00", "01/09/2015"));
         voos.add(new Voo("São Paulo", "Rio de Janeiro", "13:00", "01/09/2015"));
         voos.add(new Voo("São Paulo", "Minas Gerais", "14:00", "02/09/2015"));
         voos.add(new Voo("Rio de Janeiro", "São Paulo", "15:00", "03/09/2015"));
         voos.add(new Voo("Rio de Janeiro", "Minas Gerais", "16:00", "04/09/2015"));
         voos.add(new Voo("Minas Gerais", "São Paulo", "17:00", "04/09/2015"));
         voos.add(new Voo("Minas Gerais", "Rio de Janeiro", "18:00", "04/09/2015"));
-
+        voos.add(new Voo("São Paulo", "Minas Gerais", "14:00", "02/09/2015"));
+        voos.add(new Voo("Rio de Janeiro", "São Paulo", "15:00", "03/09/2015"));
+        voos.add(new Voo("Rio de Janeiro", "Minas Gerais", "16:00", "04/09/2015"));
+        voos.add(new Voo("Minas Gerais", "São Paulo", "17:00", "04/09/2015"));
+        voos.add(new Voo("Minas Gerais", "Rio de Janeiro", "18:00", "04/09/2015"));
         return voos;
     }
 
-    private Voo buscarVoos(String origem, String destino) {
-        for (Voo voo : voos) {
+    private ArrayList<Voo> buscarVoos(String origem, String destino) {
 
-            if (origem.equals(voo.getOrigem()) && destino.equals(voo.getDestino())) {
-                Log.i("info", "Voo: "+ voo);
-                return voo;
-            }
+        for (Voo voo : voos) {
+                    if(origem.equalsIgnoreCase(voo.getOrigem()) && destino.equalsIgnoreCase(voo.getDestino())){
+                            voosEncontrados.add(voo);
+
+                       // Log.i("info", "teste: " + voosEncontrados.size());
+
+                    }
+            return voosEncontrados;
         }
         return null;
     }

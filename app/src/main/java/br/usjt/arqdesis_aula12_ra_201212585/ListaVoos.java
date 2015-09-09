@@ -1,43 +1,40 @@
 package br.usjt.arqdesis_aula12_ra_201212585;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import entity.Voo;
 
-public class ListaVoos extends AppCompatActivity {
-    private Bundle bundle;
+public class ListaVoos extends Activity {
+    private ListView lv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lista_voos);
-        ListView listView = (ListView) findViewById(R.id.layoutListaVoos);
 
-       // ArrayList<Voo> dados = (ArrayList<Voo>) getIntent().getExtras("voos");
+        setContentView(R.layout.lista_voos);
 
-        //Intent intent = new Intent();
-       // ArrayList<Voo> lista = (ArrayList<Voo>) intent.getSerializable("nvp");
+        lv = (ListView) findViewById(R.id.layoutListaVoos);
 
-        Bundle extra = getIntent().getBundleExtra("extra");
-        ArrayList<Voo> lista = (ArrayList<Voo>) extra.getSerializable("lista");
+         ArrayList<Voo> lista = (ArrayList<Voo>) getIntent().getSerializableExtra("lista");
 
+        ArrayAdapter<Voo> arrayAdapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_list_item_1,
+                lista );
+        lv.setAdapter(arrayAdapter);
 
-        // Recupera os parâmetros passados pelo atributo estatico
-      //  ArrayList dados = (ArrayList<Voo>) getIntent().get
-
-      //  ArrayList arrayLista = (ArrayList) bundle.getBundle("voos");
-
-        ArrayAdapter<Voo> aa = new ArrayAdapter<Voo>(this, android.R.layout.simple_list_item_2, android.R.id.text1, lista );
-
-        listView.setAdapter(aa);
+       // Log.i("info", "Tamanho recebido: " + lista.size());
     }
 
     @Override
